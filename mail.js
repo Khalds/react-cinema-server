@@ -8,7 +8,7 @@ async function mail(from, to, subject, html) {
     secure: true,
     auth: {
       user: "magomed.arkhiyev@bk.ru",
-      pass: "shwNTHiVrs4r2g0bz1LU",
+      pass: "DDLx9AKeirjxDKgLpkQX",
     },
   });
 
@@ -17,6 +17,12 @@ async function mail(from, to, subject, html) {
     to,
     subject,
     html,
+    attachments: [
+      {
+        filename: "ticket",
+        href: "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-ticket-design-template-fd0090203df014a14c107ad92884662a_screen.jpg?ts=1561415928",
+      },
+    ],
   });
   console.log("Message sent: %s", info.messageId);
   console.log("Preview UPR: %s", nodemailer.getTestMessageUrl(info));

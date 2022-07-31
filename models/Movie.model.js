@@ -5,16 +5,23 @@ const movieSchema = mongoose.Schema({
   description: String,
   length: String,
   limitation: Number,
-  country: String, 
+  country: String,
   img: String,
-  rating: {
-    type: Number,
-    default: 0
-  },
-  genre: [{
-    ref: "Genre",
-    type: mongoose.SchemaTypes.ObjectId,
-  }],
+  ratings: [
+    {
+      rate: Number,
+      user: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "User",
+      },
+    },
+  ],
+  genre: [
+    {
+      ref: "Genre",
+      type: mongoose.SchemaTypes.ObjectId,
+    },
+  ],
 });
 
 const Movie = mongoose.model("Movie", movieSchema);
