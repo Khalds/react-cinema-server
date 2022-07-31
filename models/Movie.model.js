@@ -7,6 +7,7 @@ const movieSchema = mongoose.Schema({
   limitation: Number,
   country: String,
   img: String,
+
   ratings: [
     {
       rate: Number,
@@ -22,6 +23,13 @@ const movieSchema = mongoose.Schema({
       type: mongoose.SchemaTypes.ObjectId,
     },
   ],
+
+  rating: {
+    type: Number,
+    default: 0,
+  },
+
+  img_slider: String,
 });
 
 const Movie = mongoose.model("Movie", movieSchema);

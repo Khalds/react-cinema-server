@@ -1,11 +1,11 @@
-const { Router } = require("express")
-const { seatController } = require("../controllers/Seat.controller")
+const { Router } = require("express");
+const { seatController } = require("../controllers/Seat.controller");
 
-const router = Router()
+const router = Router();
 
-router.post("/movie", seatController.postSeat)
-router.get("/movie", seatController.getSeat)
-router.patch("/movie/:id", seatController.patchSeat)
-router.delete("/movie/:id", seatController.deleteSeat)
+router.post("/seat", seatController.postSeat);
+router.get("/seat", seatController.getAllSeats);
+router.patch("/seat/:id", seatController.patchSeatById);
+router.delete("/seat/:id", seatController.delSeat);
 
-module.exports = router
+module.exports = router;

@@ -1,51 +1,43 @@
-const Seat = require("../models/Genre.model")
+const Seat = require("../models/Seat.model");
 
 module.exports.seatController = {
-  getSeat: async (req, res) => {
-    try {
-      const seat = await Seat.find()
-
-      res.json(seat)
-    } catch (e) {
-      return res.status(401).json("Ошибка" + e.message)
-    }
+  getAllSeats: async (req, res) => {
+    const allSeat = await Seat.find().populate("hall");
+    res.json(allSeat);
   },
 
   postSeat: async (req, res) => {
     try {
-      const seat = await Seat.find()
+      const seat = await Seat.create({
+        price: req.body.price,
+        hall: req.body.hall,
+        name: req.body.name,
+      });
 
-      res.json(seat)
+      return res.json(seat);
     } catch (e) {
-      return res.status(401).json("Ошибка" + e.message)
+      res.json(e.message);
     }
   },
 
-  deleteSeat: async (req, res) => {
-    const { id } = req.params
-
+  patchSeatById: async (req, res) => {
     try {
-      const seat = await Seat.findById(id)
+      const seat = await Seat.findByIdAndUpdate(req.params.id , {
+        isBlocked: req.body.isBlocked,
+      }, {new : true }).populate("hall");
 
-      await seat.remove()
-
-      res.json(seat)
+      res.json(seat);
     } catch (e) {
-      return res.status(401).json("Ошибка" + e.message)
+      res.status(401).json(e.message);
     }
   },
 
-  patchSeat: async (req, res) => {
-    const { row,col } = req.body
-
+  delSeat: async (req, res) => {
     try {
-      const seat = await Seat.findByIdAndUpdate(req.params.id, {
-        row,
-        col
-      })
-      res.json(seat)
+      const seat = await Seat.findByIdAndRemove(req.params.id);
+      res.json("Ваш отзыв удален");
     } catch (e) {
-      return res.status(401).json("Ошибка" + e.message)
+      res.json("hello" + e.message);
     }
   },
-}
+};
