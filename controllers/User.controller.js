@@ -83,6 +83,14 @@ module.exports.userController = {
       next();
     }
   },
+  getUsersReviews: async (req, res, next) => {
+    try {
+      const users = await userService.getAllUsersReviews();
+      return res.json(users);
+    } catch (error) {
+      next();
+    }
+  },
 
   patchController: async (req, res) => {
     try {

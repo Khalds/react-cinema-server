@@ -20,7 +20,7 @@ const mail = require("./mail.js");
 app.use(bodyParser.json());
 
 app.get("/", (req, res) =>
-  res.send(`Requested from ${req.hostname} : <h1>Hello World</h1>`)
+  res.send(`Requested from ${req.hostname} : <h1>Hello World</h1>`) 
 );
 
 app.post("/mail", async (req, res) => {
@@ -49,7 +49,7 @@ app.use(require("./routes/Hall.route"))
 app.use(require("./routes/Movie.route"))
 app.use(require("./routes/Book.route"))
 app.use(require("./routes/Session.route"))
-app.use(require("./routes/Review.route"))
+// app.use(require("./routes/Review.route"))
 app.use(errorMiddlewares)  
 
 
