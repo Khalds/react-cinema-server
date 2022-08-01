@@ -92,6 +92,11 @@ class UserService {
     const users = await User.findById(req.params.id); 
     return users; 
   }
+  
+  async getAllUsersReviews() {
+    const users = await User.find(); 
+    return users; 
+  }
 }
 
 module.exports = new UserService();

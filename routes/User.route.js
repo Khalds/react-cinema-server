@@ -1,5 +1,8 @@
 const { Router } = require("express");
-const { ratingsController } = require("../controllers/Rating.controller");
+const { body } = require("express-validator");
+const { userController } = require("../controllers/User.controller");
+const authMiddleware = require("../middlewares/auth.middlewares")
+
 
 const router = Router();
 
@@ -16,11 +19,12 @@ router.post("/login", userController.login)
 router.get("/activated/:link", userController.activateController)
 router.get("/refresh", userController.refresh)
 router.get("/getUsers/:id", authMiddleware, userController.getUsers)
+router.get("/users/review", authMiddleware, userController.getUsersReviews)
 
 
-router.get("/reviews", reviewsController.getAllReviews);
-router.post("/review", reviewsController.postReview);
-router.patch("/review/:id", reviewsController.patchReviewById);
-router.delete("/review/:id", reviewsController.delReviewById);
+// router.get("/C", reviewsController.getAllReviews);
+// router.post("/C", reviewsController.postReview);
+// router.patch("/review/:id", reviewsController.patchReviewById);
+// router.delete("/review/:id", reviewsController.delReviewById);
 
-module.exports = router;
+module.exports = router; 
