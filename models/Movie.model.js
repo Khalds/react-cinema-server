@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
 const movieSchema = mongoose.Schema({
   name: String,
@@ -7,18 +7,31 @@ const movieSchema = mongoose.Schema({
   limitation: Number,
   country: String,
   img: String,
+
+  ratings: [
+    {
+      rate: Number,
+      user: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "User",
+      },
+    },
+  ],
+  genre: [
+    {
+      ref: "Genre",
+      type: mongoose.SchemaTypes.ObjectId,
+    },
+  ],
+
   rating: {
     type: Number,
-    default: 0
+    default: 0,
   },
-  genre: [{
-    ref: "Genre",
-    type: mongoose.SchemaTypes.ObjectId,
-  }],
-  img_slider: String
+
+  img_slider: String,
 });
 
+const Movie = mongoose.model("Movie", movieSchema);
 
-const Movie = mongoose.model("Movie", movieSchema)
-
-module.exports = Movie
+module.exports = Movie;
