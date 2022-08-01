@@ -10,12 +10,13 @@ router.post(
   body("email").isEmail(),
   body("password").isLength({ min: 6, max: 32 }),
   userController.userRegistrationController
-);
-router.post("/logout", userController.logout);
-router.post("/login", userController.login);
-router.get("/activated/:link", userController.activateController);
-router.get("/refresh", userController.refresh);
-router.get("/getUsers", authMiddleware, userController.getUsers);
+)
+router.post("/logout", userController.logout)
+router.post("/login", userController.login)
+router.get("/activated/:link", userController.activateController)
+router.get("/refresh", userController.refresh)
+router.get("/getUsers/:id", authMiddleware, userController.getUsers)
+
 
 router.get("/reviews", reviewsController.getAllReviews);
 router.post("/review", reviewsController.postReview);

@@ -5,6 +5,7 @@ const mailService = require("./mail.service");
 const tokenService = require("./token-service");
 const UserDto = require("../dtos/user-dto");
 const ApiError = require("../exceptions/api-error");
+const e = require("express");
 
 class UserService {
   async registration(name, lastName, login, email, password) {
@@ -50,17 +51,19 @@ class UserService {
   async login(email, password) {
     const user = await User.findOne({ email });
     if (!user) {
-      throw ApiError.BodRequest("Пользователь с таким email не найден");
+
+      throw ApiError.BodRequest("Пользователь с таким email не найден " );
+     
     }
     const isPassEquals = await bcrypt.compare(password, user.password);
     if (!isPassEquals) {
-      throw ApiError.BodRequest("Неверный пароль");
+      throw ApiError.BodRequest("Неверный пароль"); 
     }
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto });
 
     await tokenService.saveToken(userDto.id, tokens.refreshToken);
-    return { ...tokens, user: userDto };
+    return { ...tokens, user: userDto }; 
   }
 
   async logout(refreshToken) {
@@ -74,7 +77,7 @@ class UserService {
     }
     const userData = tokenService.validateRefreshToken(refreshToken);
     const tokenFromDb = await tokenService.findToken(refreshToken);
-    if (!userData || !tokenFromDb) {
+    if (!userData || !tokenFromDb) {  
       throw ApiError.UnauthorizedError();
     }
     const user = await User.findById(userData.id);
@@ -85,9 +88,9 @@ class UserService {
     return { ...tokens, user: userDto };
   }
 
-  async getAllUsers() {
-    const users = await User.find();
-    return users;
+  async getAllUsers(req) {
+    const users = await User.findById(req.params.id); 
+    return users; 
   }
 }
 
