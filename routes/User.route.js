@@ -18,7 +18,7 @@ router.post("/logout", userController.logout)
 router.post("/login", userController.login)
 router.get("/activated/:link", userController.activateController)
 router.get("/refresh", userController.refresh)
-router.get("/getUsers", authMiddleware, userController.getUsers)
+router.get("/getUsers/:id", authMiddleware, userController.getUsers)
 
 router.get("/reviews", reviewsController.getAllReviews)
 router.post("/review", reviewsController.postReview)

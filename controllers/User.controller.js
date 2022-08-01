@@ -36,8 +36,8 @@ module.exports.userController = {
   },
 
   login: async (req, res, next) => {
-    const { email, password } = req.body;
     try {
+      const { email, password } = req.body;
       const userData = await userService.login(email, password);
       res.cookie("refreshToken", userData.refreshToken, {
         maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -77,7 +77,7 @@ module.exports.userController = {
 
   getUsers: async (req, res, next) => {
     try {
-      const users = await userService.getAllUsers();
+      const users = await userService.getAllUsers(req);
       return res.json(users);
     } catch (error) {
       next();
